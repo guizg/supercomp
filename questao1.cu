@@ -16,6 +16,16 @@ __host__ void print(bool** grid){
   }
 }
 
+// Exibe os pontos na tela
+__device__ void d_print(bool** grid){
+    printf("\n\n\n\n\n");
+    for(unsigned int i = 1; i < size-1; i++) {
+      for(unsigned int j = 1; j < size-1; j++)
+        printf(grid[i][j]?"#":"_");
+      printf("\n");
+    }
+  }
+
 __host__ bool someoneAlive(bool** grid){
     for(unsigned int i=0; i < size; i++)
         for(unsigned int j=0; j < size; j++)
@@ -30,7 +40,7 @@ __global__ void jogo(bool** grid){
   int n=blockIdx.y*blockDim.y+threadIdx.y;
   
   if (m<size && n<size){
-    printf("m: %d n: %d\n",m,n);
+    // printf("m: %d n: %d\n",m,n);
 
 
       //   bool isAlive = false;
@@ -55,6 +65,7 @@ __global__ void jogo(bool** grid){
         //   }
   }
 //   return isAlive;
+    d_print(grid);
     return;
 }
 
@@ -100,6 +111,7 @@ int main(){
       print(grid);
     
       usleep(100000);
+      return 0;
   }
 
 
