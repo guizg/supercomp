@@ -52,13 +52,13 @@ __global__ void jogo(bool grid[][size]){
                 ++count;
         if(count < 2 || count > 3){
             grid[m][n] = false;
-            printf("m: %d n: %d MORREU\n",m,n);
+            // printf("m: %d n: %d MORREU\n",m,n);
             // printf("count = %d\n", count);
         } 
         else {
             if(count == 3){
                     grid[m][n] = true;
-                    printf("m: %d n: %d REVIVEU\n",m,n);
+                    // printf("m: %d n: %d REVIVEU\n",m,n);
             }
         }
   }
@@ -79,7 +79,7 @@ int main(){
   grid[10][11] = true;
   grid[10][12] = true;
 
-  bool d_grid[size][size] = {};
+  bool d_grid[size][size];
   int mem_size = size*size*sizeof(bool);
   
 
