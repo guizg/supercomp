@@ -98,8 +98,6 @@ int main(){
 
   cudaMalloc((void **) &(d_grid[0]), mem_size);
 
-  printf("chegou aqui");
-
 
   int nthreads = 7;
   dim3 blocks(size/nthreads+1,size/nthreads+1);
@@ -118,7 +116,7 @@ int main(){
       print(grid);
     
       usleep(100000);
-      return 0;
+    //   return 0;
   }
 
   cudaFree(d_grid);
