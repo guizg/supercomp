@@ -21,7 +21,7 @@ __device__ void d_print(bool** grid){
     printf("\n\n\n\n\n");
     for(unsigned int i = 1; i < size-1; i++) {
       for(unsigned int j = 1; j < size-1; j++)
-        grid[i][j]?printf("#"):printf("_");
+        grid[i][j]?printf("1"):printf("0");
       printf("\n");
     }
   }
