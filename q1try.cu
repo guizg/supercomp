@@ -95,7 +95,7 @@ int main(){
   bool d_grid[size][size] = {};
   int mem_size = size*size*sizeof(bool);
 
-  cudaMalloc((void **) &(d_grid[0]), mem_size);
+  cudaMalloc((void **) &(&d_grid), mem_size);
 
 
   int nthreads = 7;
