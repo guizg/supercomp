@@ -7,7 +7,7 @@
 #define size 21  // Tamanho da matrix
 
 // Exibe os pontos na tela
-__host__ void print(bool grid[][size]){
+__host__ void print(bool** grid){
   std::cout << "\n\n\n\n\n";
   for(unsigned int i = 1; i < size-1; i++) {
     for(unsigned int j = 1; j < size-1; j++)
@@ -17,7 +17,7 @@ __host__ void print(bool grid[][size]){
 }
 
 // Calcula a simulacao
-__global__ void jogo(bool grid[][size]){
+__global__ void jogo(bool** grid){
 
   int m=blockIdx.x*blockDim.x+threadIdx.x;
   int n=blockIdx.y*blockDim.y+threadIdx.y;
