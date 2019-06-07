@@ -17,7 +17,6 @@ __host__ void print(bool** grid){
 }
 
 __host__ bool someoneAlive(bool** grid){
-    bool isAlive = false;
     for(unsigned int i=0; i < size; i++)
         for(unsigned int j=0; j < size; j++)
             if(grid[i][j]==true) return true;
@@ -31,6 +30,8 @@ __global__ void jogo(bool** grid){
   int n=blockIdx.y*blockDim.y+threadIdx.y;
   
   if (m<size && n<size){
+    std::cerr << "m: " << m << "| n: "<<n;
+    std::cerr << std::endl;
 
       //   bool isAlive = false;
         bool grid_tmp[size][size] = {};
