@@ -30,7 +30,7 @@ __device__ void d_print(bool** grid){
     }
   }
 
-__host__ bool someoneAlive(bool** grid){
+__host__ bool someoneAlive(bool grid[][size]){
     for(unsigned int i=0; i < size; i++)
         for(unsigned int j=0; j < size; j++)
             if(grid[i][j]==true) return true;
@@ -38,7 +38,7 @@ __host__ bool someoneAlive(bool** grid){
 }
 
 // Calcula a simulacao
-__global__ void jogo(bool** grid){
+__global__ void jogo(bool grid[][size]){
 
   int m=blockIdx.x*blockDim.x+threadIdx.x;
   int n=blockIdx.y*blockDim.y+threadIdx.y;
