@@ -51,9 +51,9 @@ __global__ void jogo(bool grid[][size]){
         for(unsigned int i=0; i < size; i++){
           for(unsigned int j=0; j < size; j++){
             grid_tmp[i][j] = grid[i][j];
-            printf("%d",grid[i][j]);
+            // printf("%d",grid[i][j]);
           }
-          printf("\n");
+        //   printf("\n");
         }
       
 
@@ -65,13 +65,13 @@ __global__ void jogo(bool grid[][size]){
                 ++count;
         if(count < 2 || count > 3){
             grid[m][n] = false;
-            // printf("m: %d n: %d MORREU\n",m,n);
-            // printf("count = %d\n", count);
+            printf("m: %d n: %d MORREU\n",m,n);
+            printf("count = %d\n", count);
         } 
         else {
             if(count == 3){
                     grid[m][n] = true;
-                    // printf("m: %d n: %d REVIVEU\n",m,n);
+                    printf("m: %d n: %d REVIVEU\n",m,n);
             }
         }
   }
