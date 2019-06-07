@@ -111,8 +111,8 @@ int main(){
 
   cudaMalloc((void **) &d_grid, mem_size);
 
-  for(int i=0; i<size; i++) cudaMalloc((void **) &(d_grid[i]), size*sizeof(bool));
   printf("chegou aqui");
+  for(int i=0; i<size; i++) cudaMalloc((void **) &(d_grid[i]), size*sizeof(bool));
 
   int nthreads = 7;
   dim3 blocks(size/nthreads+1,size/nthreads+1);
