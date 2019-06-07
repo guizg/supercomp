@@ -52,33 +52,33 @@ __global__ void jogo(bool** grid){
         for(unsigned int i=0; i < size; i++){
           for(unsigned int j=0; j < size; j++){
             grid_tmp[i][j] = grid[i][j];
-            printf("%d",grid[i][j]);
+            // printf("%d",grid[i][j]);
           }
-          printf("\n");
+        //   printf("\n");
         }
       
         
         // for(unsigned int i = 1; i < size-1; i++)
         //   for(unsigned int j = 1; j < size-1; j++) {
         
-            unsigned int count = 0;
-          //   if(grid[i][j]) isAlive = true;
-            for(int k = -1; k <= 1; k++) 
-              for(int l = -1; l <= 1; l++)
-                if(k != 0 || l != 0)
-                  if(grid_tmp[m+k][n+l])
-                    ++count;
-            if(count < 2 || count > 3){
-                grid[m][n] = false;
-                printf("m: %d n: %d MORREU\n",m,n);
-                printf("count = %d\n", count);
-            } 
-            else {
-                if(count == 3){
-                     grid[m][n] = true;
-                     printf("m: %d n: %d REVIVEU\n",m,n);
-                }
+        unsigned int count = 0;
+        //   if(grid[i][j]) isAlive = true;
+        for(int k = -1; k <= 1; k++) 
+            for(int l = -1; l <= 1; l++)
+            if(k != 0 || l != 0)
+                if(grid_tmp[m+k][n+l])
+                ++count;
+        if(count < 2 || count > 3){
+            grid[m][n] = false;
+            // printf("m: %d n: %d MORREU\n",m,n);
+            // printf("count = %d\n", count);
+        } 
+        else {
+            if(count == 3){
+                    grid[m][n] = true;
+                    // printf("m: %d n: %d REVIVEU\n",m,n);
             }
+        }
         //   }
   }
 //   return isAlive;
@@ -107,9 +107,11 @@ int main(){
   grid[10][12] = true;
 
   bool** d_grid;
-  int mem_size = size*size*sizeof(bool);
+  int mem_size = size*sizeof(bool*);
 
   cudaMalloc((void **) &d_grid, mem_size);
+
+  for(int i=0; i<size; i++) cudaMalloc((void **) &(d_grid[i]), size*sizeof(bool));
 
   int nthreads = 7;
   dim3 blocks(size/nthreads+1,size/nthreads+1);
@@ -117,12 +119,13 @@ int main(){
 
   while(someoneAlive(grid)){
       
-      cudaMemcpy(d_grid, grid, size*size*sizeof(bool), cudaMemcpyHostToDevice);
+
+      for(int i=0; i<size; i++) cudaMemcpy(d_grid[i], grid[i], size*sizeof(bool), cudaMemcpyHostToDevice);
     
       jogo<<<blocks,threads>>>(d_grid);
       cudaDeviceSynchronize();
     
-      cudaMemcpy(grid, d_grid, size*size*sizeof(bool), cudaMemcpyDeviceToHost);
+      for(int i=0; i<size; i++) cudaMemcpy(grid[i], d_grid[i], size*size*sizeof(bool), cudaMemcpyDeviceToHost);
     
       print(grid);
     
