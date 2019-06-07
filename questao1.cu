@@ -30,7 +30,7 @@ __global__ void jogo(bool** grid){
   int n=blockIdx.y*blockDim.y+threadIdx.y;
   
   if (m<size && n<size){
-    printf("m: %d n: %d",m,n)
+    printf("m: %d n: %d",m,n);
 
 
       //   bool isAlive = false;
