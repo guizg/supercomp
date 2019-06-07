@@ -53,7 +53,7 @@ __global__ void jogo(bool grid[][size]){
         if(count < 2 || count > 3){
             grid[m][n] = false;
             printf("m: %d n: %d MORREU\n",m,n);
-            printf("count = %d\n", count);
+            // printf("count = %d\n", count);
         } 
         else {
             if(count == 3){
