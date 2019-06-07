@@ -64,12 +64,19 @@ __global__ void jogo(bool** grid){
                 if(k != 0 || l != 0)
                   if(grid_tmp[m+k][n+l])
                     ++count;
-            if(count < 2 || count > 3) grid[m][n] = false;
-            else if(count == 3) grid[m][n] = true;
+            if(count < 2 || count > 3){
+                grid[m][n] = false;
+                printf("m: %d n: %d MORREU\n",m,n);
+            } 
+            else {
+                if(count == 3){
+                     grid[m][n] = true;
+                     printf("m: %d n: %d REVIVEU\n",m,n);
+                }
+            }
         //   }
   }
 //   return isAlive;
-    d_print(grid);
     return;
 }
 
