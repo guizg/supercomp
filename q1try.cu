@@ -7,7 +7,7 @@
 #define size 21  // Tamanho da matrix
 
 // Exibe os pontos na tela
-__host__ void print(bool** grid){
+__host__ void print(bool grid[][size]){
   std::cout << "\n\n\n\n\n";
   for(unsigned int i = 1; i < size-1; i++) {
     for(unsigned int j = 1; j < size-1; j++)
