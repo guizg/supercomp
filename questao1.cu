@@ -48,7 +48,15 @@ __global__ void jogo(bool** grid){
 
 
       //   bool isAlive = false;
-        bool grid_tmp[size][size] = {};
+
+      bool** grid_temp;
+      int mem_size = size*sizeof(bool*);
+
+      cudaMalloc((bool **) &grid_temp, mem_size);
+
+      for(int i=0; i<size; i++) cudaMalloc((bool*) grid_temp[i], size*sizeof(bool));
+
+        // bool grid_tmp[size][size] = {};
         for(unsigned int i=0; i < size; i++)
           for(unsigned int j=0; j < size; j++)
             grid_tmp[i][j] = grid[i][j];
@@ -102,9 +110,11 @@ int main(){
   grid[10][12] = true;
 
   bool** d_grid;
-  int mem_size = size*size*sizeof(bool);
+  int mem_size = size*sizeof(bool*);
 
-  cudaMalloc((void **) &d_grid, mem_size);
+  cudaMalloc((bool **) &d_grid, mem_size);
+
+  for(int i=0; i<size; i++) cudaMalloc((bool*) d_grid[i], size*sizeof(bool));
 
   int nthreads = 7;
   dim3 blocks(size/nthreads+1,size/nthreads+1);
