@@ -47,14 +47,13 @@ __global__ void jogo(bool grid[][size]){
     // printf("m: %d n: %d\n",m,n);
 
 
-      //   bool isAlive = false;
         bool grid_tmp[size][size] = {};
         for(unsigned int i=0; i < size; i++){
           for(unsigned int j=0; j < size; j++){
             grid_tmp[i][j] = grid[i][j];
-            // printf("%d",grid[i][j]);
+            printf("%d",grid[i][j]);
           }
-        //   printf("\n");
+          printf("\n");
         }
       
 
@@ -116,7 +115,7 @@ int main(){
       print(grid);
     
       usleep(100000);
-    //   return 0;
+      return 0;
   }
 
   cudaFree(d_grid);
