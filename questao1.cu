@@ -30,8 +30,8 @@ __global__ void jogo(bool** grid){
   int n=blockIdx.y*blockDim.y+threadIdx.y;
   
   if (m<size && n<size){
-    std::cout << "m: " << m << "| n: "<<n;
-    std::cout << std::endl;
+    printf("m: %d n: %d",m,n)
+
 
       //   bool isAlive = false;
         bool grid_tmp[size][size] = {};
