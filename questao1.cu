@@ -50,7 +50,16 @@ __global__ void jogo(bool grid[][size]){
 }
 
 int main(){
-  bool grid[size][size] = {}; // dados iniciais
+//   bool grid[size][size] = {}; // dados iniciais
+
+  bool** grid = (bool**)malloc(size*sizeof(bool*));
+
+  for(int i=0; i<size; i++) grid[i] = (bool*)malloc(size*sizeof(bool));
+
+  for(unsigned int i=0; i < size; i++)
+    for(unsigned int j=0; j < size; j++)
+        grid[i][j] = false;
+  
   grid[ 5][ 7] = true;
   grid[ 6][ 8] = true;
   grid[ 8][ 8] = true;
