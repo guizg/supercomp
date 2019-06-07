@@ -16,19 +16,6 @@ __host__ void print(bool grid[][size]){
   }
 }
 
-// Exibe os pontos na tela
-__device__ void d_print(bool grid[][size]){
-    printf("\n\n\n\n\n");
-    for(unsigned int i = 1; i < size-1; i++) {
-      for(unsigned int j = 1; j < size-1; j++)
-        if(grid[i][j]==true){
-            printf("1");    
-        }else{
-            printf("0");
-        }    
-      printf("\n");
-    }
-  }
 
 __host__ bool someoneAlive(bool grid[][size]){
     for(unsigned int i=0; i < size; i++)
@@ -94,8 +81,9 @@ int main(){
 
   bool d_grid[size][size] = {};
   int mem_size = size*size*sizeof(bool);
+  
 
-  cudaMalloc((void **) &(&d_grid), mem_size);
+  cudaMalloc((void **) d_grid, mem_size);
 
 
   int nthreads = 7;
