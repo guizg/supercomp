@@ -50,8 +50,10 @@ __global__ void jogo(bool** grid){
       //   bool isAlive = false;
         bool grid_tmp[size][size] = {};
         for(unsigned int i=0; i < size; i++)
-          for(unsigned int j=0; j < size; j++)
+          for(unsigned int j=0; j < size; j++){
             grid_tmp[i][j] = grid[i][j];
+            printf("%d\n",grid[i][j]);
+          }
       
         
         // for(unsigned int i = 1; i < size-1; i++)
@@ -67,7 +69,7 @@ __global__ void jogo(bool** grid){
             if(count < 2 || count > 3){
                 grid[m][n] = false;
                 printf("m: %d n: %d MORREU\n",m,n);
-                printf("count = %d", count);
+                printf("count = %d\n", count);
             } 
             else {
                 if(count == 3){
