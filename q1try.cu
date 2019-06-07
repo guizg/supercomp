@@ -108,5 +108,4 @@ int main(){
 
   cudaFree(d_grid);
 
-
 }
