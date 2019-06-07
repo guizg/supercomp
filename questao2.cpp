@@ -9,7 +9,7 @@
 #define FROM_MASTER 1          /* Tipo de mensagem 1 */
 #define FROM_WORKER 2          /* Tipo de mensagem 2 */
 
-#define SERIE 1 // 0 para a serie 'a' e 1 para a serie 'b'
+#define SERIE 0 // 0 para a serie 'a' e 1 para a serie 'b'
 
 
 
@@ -74,7 +74,8 @@ int main(int argc, char *argv[]){
         mtype = FROM_WORKER;
 
         if(taskid == 1){
-            int ini = 1;
+            int ini=1;
+            if(SERIE == 0) ini = 0;
             int fim = 1000000000;
 
             for(int i=ini; i<=fim;i++){

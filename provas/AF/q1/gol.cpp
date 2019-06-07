@@ -48,5 +48,6 @@ int main(){
   while (jogo(grid)) { // loop enquanto algo vivo
     print(grid);
     usleep(100000);  // pausa para poder exibir no terminal
+    return 0;
   } 
 }

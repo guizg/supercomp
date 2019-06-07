@@ -16,6 +16,14 @@ __host__ void print(bool** grid){
   }
 }
 
+__host__ bool someoneAlive(bool** grid){
+    bool isAlive = false;
+    for(unsigned int i=0; i < size; i++)
+        for(unsigned int j=0; j < size; j++)
+            if(grid[i][j]==true) return true;
+    return false;
+}
+
 // Calcula a simulacao
 __global__ void jogo(bool** grid){
 
@@ -69,7 +77,6 @@ int main(){
   grid[ 8][11] = true;
   grid[10][11] = true;
   grid[10][12] = true;
-  bool continua = true;
 
   bool** d_grid;
   int mem_size = size*size*sizeof(bool);
@@ -80,13 +87,21 @@ int main(){
   dim3 blocks(size/nthreads+1,size/nthreads+1);
   dim3 threads(nthreads,nthreads);
 
-  cudaMemcpy(d_grid, grid, size*size*sizeof(bool), cudaMemcpyHostToDevice);
+  while(someoneAlive(grid)){
+      
+      cudaMemcpy(d_grid, grid, size*size*sizeof(bool), cudaMemcpyHostToDevice);
+    
+      jogo<<<blocks,threads>>>(d_grid);
+      cudaDeviceSynchronize();
+    
+      cudaMemcpy(grid, d_grid, size*size*sizeof(bool), cudaMemcpyDeviceToHost);
+    
+      print(grid);
+    
+      usleep(100000);
+  }
 
-  jogo<<<blocks,threads>>>(d_grid);
 
-  cudaMemcpy(grid, d_grid, size*size*sizeof(bool), cudaMemcpyDeviceToHost);
-
-  print(grid);
 
 //   while (continua) { // loop enquanto algo vivo
 //     continua = jogo(grid)
