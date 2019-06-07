@@ -88,14 +88,7 @@ __global__ void jogo(bool** grid){
 int main(){
 //   bool grid[size][size] = {}; // dados iniciais
 
-  bool** grid = (bool**)malloc(size*sizeof(bool*));
-
-  for(int i=0; i<size; i++) grid[i] = (bool*)malloc(size*sizeof(bool));
-
-  for(unsigned int i=0; i < size; i++)
-    for(unsigned int j=0; j < size; j++)
-        grid[i][j] = false;
-  
+  bool grid[size][size] = {}; // dados iniciais
   grid[ 5][ 7] = true;
   grid[ 6][ 8] = true;
   grid[ 8][ 8] = true;
@@ -106,13 +99,13 @@ int main(){
   grid[10][11] = true;
   grid[10][12] = true;
 
-  bool** d_grid;
-  int mem_size = size*sizeof(void*);
+  bool d_grid[size][size] = {};
+  int mem_size = size*size*sizeof(bool);
 
   cudaMalloc((void **) &d_grid, mem_size);
 
   printf("chegou aqui");
-  for(int i=0; i<size; i++) cudaMalloc((void **) &(d_grid[i]), size*sizeof(bool));
+
 
   int nthreads = 7;
   dim3 blocks(size/nthreads+1,size/nthreads+1);
@@ -121,12 +114,12 @@ int main(){
   while(someoneAlive(grid)){
       
 
-      for(int i=0; i<size; i++) cudaMemcpy(d_grid[i], grid[i], size*sizeof(bool), cudaMemcpyHostToDevice);
+      cudaMemcpy(d_grid, grid, mem_size, cudaMemcpyHostToDevice);
     
       jogo<<<blocks,threads>>>(d_grid);
       cudaDeviceSynchronize();
     
-      for(int i=0; i<size; i++) cudaMemcpy(grid[i], d_grid[i], size*size*sizeof(bool), cudaMemcpyDeviceToHost);
+      cudaMemcpy(grid, d_grid, mem_size, cudaMemcpyDeviceToHost);
     
       print(grid);
     
@@ -135,10 +128,4 @@ int main(){
   }
 
 
-
-//   while (continua) { // loop enquanto algo vivo
-//     continua = jogo(grid)
-//     print(grid);
-//     usleep(100000);  // pausa para poder exibir no terminal
-//   } 
 }
