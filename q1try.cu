@@ -57,12 +57,8 @@ __global__ void jogo(bool** grid){
         //   printf("\n");
         }
       
-        
-        // for(unsigned int i = 1; i < size-1; i++)
-        //   for(unsigned int j = 1; j < size-1; j++) {
-        
+
         unsigned int count = 0;
-        //   if(grid[i][j]) isAlive = true;
         for(int k = -1; k <= 1; k++) 
             for(int l = -1; l <= 1; l++)
             if(k != 0 || l != 0)
@@ -79,9 +75,7 @@ __global__ void jogo(bool** grid){
                     // printf("m: %d n: %d REVIVEU\n",m,n);
             }
         }
-        //   }
   }
-//   return isAlive;
     return;
 }
 
@@ -102,7 +96,7 @@ int main(){
   bool d_grid[size][size] = {};
   int mem_size = size*size*sizeof(bool);
 
-  cudaMalloc((void **) &d_grid, mem_size);
+  cudaMalloc((void **) &(d_grid[0]), mem_size);
 
   printf("chegou aqui");
 
@@ -126,6 +120,8 @@ int main(){
       usleep(100000);
       return 0;
   }
+
+  cudaFree(d_grid);
 
 
 }
