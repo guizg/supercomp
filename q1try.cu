@@ -17,7 +17,7 @@ __host__ void print(bool** grid){
 }
 
 // Exibe os pontos na tela
-__device__ void d_print(bool** grid){
+__device__ void d_print(bool grid[][size]){
     printf("\n\n\n\n\n");
     for(unsigned int i = 1; i < size-1; i++) {
       for(unsigned int j = 1; j < size-1; j++)
