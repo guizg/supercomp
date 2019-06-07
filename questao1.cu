@@ -49,11 +49,13 @@ __global__ void jogo(bool** grid){
 
       //   bool isAlive = false;
         bool grid_tmp[size][size] = {};
-        for(unsigned int i=0; i < size; i++)
+        for(unsigned int i=0; i < size; i++){
           for(unsigned int j=0; j < size; j++){
             grid_tmp[i][j] = grid[i][j];
-            printf("%d\n",grid[i][j]);
+            printf("%d",grid[i][j]);
           }
+          printf("\n");
+        }
       
         
         // for(unsigned int i = 1; i < size-1; i++)
